@@ -46,6 +46,7 @@
 #' @examples
 #' unaccent("Jérémie")
 #' unaccent("Héloïse")
+#' @export
 
 unaccent <- function(string) {
   text <- gsub("['`^~\"]", " ", string)
@@ -71,6 +72,7 @@ unaccent <- function(string) {
 #' @examples
 #' gender_unique("Baptiste")
 #' gender_unique("Henriette")
+#' @import dplyr
 
 gender_unique <- function(fn, freq = FALSE) {
   temp <- df %>% filter(firstname == toupper(unaccent(fn))) %>%
@@ -98,8 +100,9 @@ gender_unique <- function(fn, freq = FALSE) {
 #' \code{\link{gender_unique}}, \code{\link{is.male}}, \code{\link{is.female}}
 #' @examples
 #' gender(c("Baptiste", "Henriette")
+#' @export
 
-gender <- function(firstname, freq = FALSE) sapply(firstname, gender_unique, freq = freq) %>% as.vector
+gender <- function(firstname, freq = FALSE) as.vector(sapply(firstname, gender_unique, freq = freq))
 
 # is.male ----
 
@@ -114,6 +117,7 @@ gender <- function(firstname, freq = FALSE) sapply(firstname, gender_unique, fre
 #' \code{\link{gender_unique}}, \code{\link{gender}}, \code{\link{is.female}}
 #' @examples
 #' is_male(c("Baptiste", "Annick")
+#' @export
 
 is_male <- function(firstname) gender(firstname) == "male"
 
@@ -130,13 +134,15 @@ is_male <- function(firstname) gender(firstname) == "male"
 #' \code{\link{gender_unique}}, \code{\link{gender}}, \code{\link{is.male}}
 #' @examples
 #' is_female(c("Baptiste", "Annick")
+#' @export
 
 is_female <- function(firstname) gender(firstname) == "female"
 
 
+# To do next :
 
-# To do :
-# Add probs or freq logical parameter to is.male and is.female to return probability instead of logical
+# * Add probs or freq logical parameter to is.male and is.female to return
+# probability instead of logical.
 
 
 
