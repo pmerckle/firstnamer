@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 ```
 
 
-A 'firstnamer' is someone who intentedly or unintedly mentions a lot of first names in a conversation, thus making others feel like they do not know the people everybody is supposed to know. 
+A '[firstnamer](https://www.urbandictionary.com/define.php?term=Firstnamer)' is someone who more than necessary refers to unknown, non-present people by intentionnally using only their first names. 'Firstnaming' is often used to make others feel like they do not know the people everybody is supposed to know. 
 
 But beyond fatuity and distinction strategies, what's behing a first name? This is the purpose of the firstnamer package to help uncover the unsuspected amount of information that first narmes carry with them. It is designed as a set of function that help retrieve these informations and handle first names.
 
