@@ -1,0 +1,23 @@
+Package: firstnamer
+Title: Set of Functions Using First Name Databases
+Version: 0.0.9000
+Date: 2019-03-11
+License: GPL
+Encoding: UTF-8
+Authors@R: c(
+    person("Pierre", "Mercklé", email = "pierre.merckle@free.fr", role = c("aut", "cre")),
+    person("Baptiste", "Coulmont", email = "coulmont@gmail.com", role = "aut"))
+Description: The firstnamer package provides a set of useful functions using first name databases.
+URL: http://github.com/pmerckle/firstnamer
+BugReports: http://github.com/pmerckle/firstnamer/issues
+Depends: R (>= 3.1.0)
+Imports:
+    dplyr,
+    magrittr,
+    stringr
+LazyData: true
+RoxygenNote: 6.1.1
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
