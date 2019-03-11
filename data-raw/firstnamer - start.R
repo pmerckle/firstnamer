@@ -78,6 +78,7 @@ devtools::use_data_raw()
 library(devtools)
 devtools::install_github("pmerckle/firstnamer")
 library(firstnamer)
+gender("Pierre")
 gender(c("Jacques", "Bernadette", "Nicolas", "Carla", "François", "Julie", "Emmanuel", "Brigitte"))
 
 # Help pages

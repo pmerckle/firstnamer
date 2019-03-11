@@ -37,6 +37,8 @@ unaccent <- function(string) {
 #' This function predicts the gender of a first name.
 #'
 #' @param firstname first name as a character string.
+#' @param year_min starting year of the period over which the prediction is computed.
+#' @param year_max ending year of the period over which the prediction is computed.
 #' @param freq return the probability of the first name being male
 #' @return
 #' The predicted gender based on the proportions of males and females with the input first name. Possible values are either "male" or "female". NA is returned when the input first name is unknown in the database.
@@ -48,8 +50,8 @@ unaccent <- function(string) {
 #' gender_unique("Henriette")
 #' @import dplyr
 
-gender_unique <- function(fn, freq = FALSE) {
-  temp <- fn_fr %>% filter(firstname == toupper(unaccent(fn))) %>%
+gender_unique <- function(fn, year_min = 1900, yar_max = 2017, freq = FALSE) {
+  temp <- fn_fr %>% filter(firstname == toupper(unaccent(fn)) & year >= year_min & year <= year_max) %>%
     group_by(firstname, sex) %>%
     summarise(nb =sum(count)) %>%
     mutate(pourcentage = nb / sum(nb) * 100) %>%
@@ -65,8 +67,7 @@ gender_unique <- function(fn, freq = FALSE) {
 #'
 #' This function predicts the genders of a vector of first names.
 #'
-#' @param firstname First names as a character vector.
-#' @param freq Return the probability of the first names being males.
+#' @inheritParams gender_unique
 #' @return
 #' The predicted genders based on the proportions of males and females with the input first names. Possible values are either "male" or "female". NAs are returned when the input first names are unknown in the database.
 #' If freq is set to TRUE, the function returns the probabilities of the first names being male.
@@ -76,7 +77,7 @@ gender_unique <- function(fn, freq = FALSE) {
 #' gender(c("Baptiste", "Henriette")
 #' @export
 
-gender <- function(firstname, freq = FALSE) as.vector(sapply(firstname, gender_unique, freq = freq))
+gender <- function(firstname, year_min = 1900, year_max = 2017, freq = FALSE) as.vector(sapply(firstname, gender_unique, year_min = year_min, year_max = year_max, freq = freq))
 
 # is.male ----
 
@@ -93,7 +94,7 @@ gender <- function(firstname, freq = FALSE) as.vector(sapply(firstname, gender_u
 #' is_male(c("Baptiste", "Annick")
 #' @export
 
-is_male <- function(firstname) gender(firstname) == "male"
+is_male <- function(firstname, year_min = 1900, year_max = 2017) gender(firstname, year_min = year_min, year_max = year_max) == "male"
 
 # is.female ----
 
@@ -110,7 +111,7 @@ is_male <- function(firstname) gender(firstname) == "male"
 #' is_female(c("Baptiste", "Annick")
 #' @export
 
-is_female <- function(firstname) gender(firstname) == "female"
+is_female <- function(firstname, year_min = 1900, year_max = 2017) gender(firstname, year_min = year_min, year_max = year_max) == "female"
 
 
 # To do next :
