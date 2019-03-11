@@ -4,9 +4,13 @@
 \alias{gender_unique}
 \title{Predict gender from first name}
 \usage{
-gender_unique(fn, freq = FALSE)
+gender_unique(fn, year_min = 1900, year_max = 2017, freq = FALSE)
 }
 \arguments{
+\item{year_min}{starting year of the period over which the prediction is computed.}
+
+\item{year_max}{ending year of the period over which the prediction is computed.}
+
 \item{freq}{return the probability of the first name being male}
 
 \item{firstname}{first name as a character string.}
@@ -23,5 +27,5 @@ gender_unique("Baptiste")
 gender_unique("Henriette")
 }
 \seealso{
-\code{\link{gender}}, \code{\link{is.male}}, \code{\link{is.female}}
+\code{\link{gender}}, \code{\link{is_male}}, \code{\link{is_female}}
 }

@@ -26,11 +26,10 @@ library(stringr)
 # Load and unzip data file
 temp <- tempfile()
 download.file("https://www.insee.fr/fr/statistiques/fichier/2540004/nat2017_txt.zip",temp)
-data <- read.table(unz(temp, "nat2017.txt"), stringsAsFactors = FALSE, encoding = "UTF-8")
+fn_fr <- read.table(unz(temp, "nat2017.txt"), stringsAsFactors = FALSE, encoding = "UTF-8")
 unlink(temp)
 
 # Clean data
-fn_fr <- data
 names(fn_fr) <- c("sex", "firstname", "year", "count")
 
 # Remove bad data
@@ -40,9 +39,6 @@ fn_fr <- fn_fr[fn_fr$sex %in% c("1", "2"), ]
 fn_fr$sex <- factor(fn_fr$sex)
 fn_fr$year <- as.integer(fn_fr$year)
 fn_fr$count <- as.integer(fn_fr$count)
-
-
-
 
 # Clean encoding
 fn_fr$firstname <- str_replace_all(fn_fr$firstname, c(
@@ -65,7 +61,7 @@ fn_fr$firstname <- str_replace_all(fn_fr$firstname, c(
 ))
 
 # Save data
-devtools::use_data(fn_fr, internal = TRUE)
+devtools::use_data(fn_fr, internal = TRUE, overwrite = TRUE)
 
 # Recode source data
 devtools::use_data_raw()
@@ -78,8 +74,11 @@ devtools::use_data_raw()
 library(devtools)
 devtools::install_github("pmerckle/firstnamer")
 library(firstnamer)
+gender_unique("Pierre")
 gender("Pierre")
 gender(c("Jacques", "Bernadette", "Nicolas", "Carla", "François", "Julie", "Emmanuel", "Brigitte"))
+
+
 
 # Help pages
 package?firstnamer

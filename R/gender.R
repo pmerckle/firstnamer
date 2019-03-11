@@ -50,7 +50,7 @@ unaccent <- function(string) {
 #' gender_unique("Henriette")
 #' @import dplyr
 
-gender_unique <- function(fn, year_min = 1900, yar_max = 2017, freq = FALSE) {
+gender_unique <- function(fn, year_min = 1900, year_max = 2017, freq = FALSE) {
   temp <- fn_fr %>% filter(firstname == toupper(unaccent(fn)) & year >= year_min & year <= year_max) %>%
     group_by(firstname, sex) %>%
     summarise(nb =sum(count)) %>%

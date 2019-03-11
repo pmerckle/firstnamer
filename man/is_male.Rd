@@ -4,7 +4,7 @@
 \alias{is_male}
 \title{Predict whether the genders of first names are male.}
 \usage{
-is_male(firstname)
+is_male(firstname, year_min = 1900, year_max = 2017)
 }
 \arguments{
 \item{firstname}{First names as a character vector.}
@@ -19,5 +19,5 @@ This function predicts whether the genders of first names are male.
 is_male(c("Baptiste", "Annick")
 }
 \seealso{
-\code{\link{gender_unique}}, \code{\link{gender}}, \code{\link{is.female}}
+\code{\link{gender_unique}}, \code{\link{gender}}, \code{\link{is_female}}
 }

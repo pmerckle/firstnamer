@@ -4,12 +4,16 @@
 \alias{gender}
 \title{Predict genders from first names}
 \usage{
-gender(firstname, freq = FALSE)
+gender(firstname, year_min = 1900, year_max = 2017, freq = FALSE)
 }
 \arguments{
-\item{firstname}{First names as a character vector.}
+\item{firstname}{first name as a character string.}
 
-\item{freq}{Return the probability of the first names being males.}
+\item{year_min}{starting year of the period over which the prediction is computed.}
+
+\item{year_max}{ending year of the period over which the prediction is computed.}
+
+\item{freq}{return the probability of the first name being male}
 }
 \value{
 The predicted genders based on the proportions of males and females with the input first names. Possible values are either "male" or "female". NAs are returned when the input first names are unknown in the database.
@@ -22,5 +26,5 @@ This function predicts the genders of a vector of first names.
 gender(c("Baptiste", "Henriette")
 }
 \seealso{
-\code{\link{gender_unique}}, \code{\link{is.male}}, \code{\link{is.female}}
+\code{\link{gender_unique}}, \code{\link{is_male}}, \code{\link{is_female}}
 }
