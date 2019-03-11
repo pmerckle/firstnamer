@@ -1,39 +1,13 @@
-# firstnamer: gender()
+# firstnamer::gender()
 #
-# This is the function named 'gender' and its variations
+# This is the function named 'gender' and its variations,
 # which get information about gender from first name
 #
-# You can learn more about package authoring with RStudio at:
-#
-#   http://r-pkgs.had.co.nz/
-#
-# Some useful keyboard shortcuts for package authoring:
-#
-#   Build and Reload Package:  'Ctrl + Shift + B'
-#   Check Package:             'Ctrl + Shift + E'
-#   Test Package:              'Ctrl + Shift + T'
 
 
-
-## DATA ----
-
-# df
-
-#' French first names 1900-2016
-#'
-#' A dataset containing the first name, sex and count of individuals born in
-#' France for each year between 2000 and 2016 attributes of almost 54,000
-#'
-#' @format A data frame with 620994 rows and 4 variables: \describe{
-#'   \item{sex}{Sex, with two levels, 1 or 2}
-#'   \item{firstname}{First name}
-#'   \item{year}{Year of birth}
-#'   \item{count}{Number of individuals born that year}
-#'   }
-#' @source \url{https://www.insee.fr/fr/statistiques/2540004}
-"df"
 
 ## FUNCTIONS ----
+
 
 # unaccent ----
 
@@ -75,7 +49,7 @@ unaccent <- function(string) {
 #' @import dplyr
 
 gender_unique <- function(fn, freq = FALSE) {
-  temp <- df %>% filter(firstname == toupper(unaccent(fn))) %>%
+  temp <- fn_fr %>% filter(firstname == toupper(unaccent(fn))) %>%
     group_by(firstname, sex) %>%
     summarise(nb =sum(count)) %>%
     mutate(pourcentage = nb / sum(nb) * 100) %>%

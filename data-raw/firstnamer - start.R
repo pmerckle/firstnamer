@@ -30,21 +30,22 @@ data <- read.table(unz(temp, "nat2017.txt"), stringsAsFactors = FALSE, encoding 
 unlink(temp)
 
 # Clean data
-df <- data
-names(df) <- c("sex", "firstname", "year", "count")
+fn_fr <- data
+names(fn_fr) <- c("sex", "firstname", "year", "count")
 
 # Remove bad data
-df <- df[df$sex %in% c("1", "2"), ]
+fn_fr <- fn_fr[fn_fr$sex %in% c("1", "2"), ]
 
 # Variable class
-df$sex <- factor(df$sex)
-df$year <- as.integer(df$year)
-df$count <- as.integer(df$count)
+fn_fr$sex <- factor(fn_fr$sex)
+fn_fr$year <- as.integer(fn_fr$year)
+fn_fr$count <- as.integer(fn_fr$count)
 
-grep("A", df$firstname, value = TRUE)
+
+
 
 # Clean encoding
-df$firstname <- str_replace_all(df$firstname, c(
+fn_fr$firstname <- str_replace_all(fn_fr$firstname, c(
   "Ã‚" = "A",
   "Ã€" = "A",
   "Ã„" = "A",
@@ -64,14 +65,12 @@ df$firstname <- str_replace_all(df$firstname, c(
 ))
 
 # Save data
-devtools::use_data(df)
+devtools::use_data(fn_fr, internal = TRUE)
 
 # Recode source data
 devtools::use_data_raw()
 
 
-# Documentation ----
-devtools::document()
 
 # Test package
 
