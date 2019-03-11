@@ -26,7 +26,7 @@ library(stringr)
 # Load and unzip data file
 temp <- tempfile()
 download.file("https://www.insee.fr/fr/statistiques/fichier/2540004/nat2017_txt.zip",temp)
-data <- read.table(unz(temp, "nat2017.txt"), stringsAsFactors = FALSE)
+data <- read.table(unz(temp, "nat2017.txt"), stringsAsFactors = FALSE, encoding = "UTF-8")
 unlink(temp)
 
 # Clean data
@@ -40,6 +40,8 @@ df <- df[df$sex %in% c("1", "2"), ]
 df$sex <- factor(df$sex)
 df$year <- as.integer(df$year)
 df$count <- as.integer(df$count)
+
+grep("A", df$firstname, value = TRUE)
 
 # Clean encoding
 df$firstname <- str_replace_all(df$firstname, c(
@@ -73,6 +75,12 @@ devtools::document()
 
 # Test package
 
+# General test
+library(devtools)
+devtools::install_github("pmerckle/firstnamer")
+library(firstnamer)
+gender(c("Jacques", "Bernadette", "Nicolas", "Carla", "François", "Julie", "Emmanuel", "Brigitte"))
+
 # Help pages
 package?firstnamer
 ?unaccent
@@ -85,3 +93,6 @@ is.female("Marcelle")
 
 # Create new vignette
 devtools::use_vignette("firstnamer")
+
+
+
