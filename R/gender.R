@@ -42,7 +42,7 @@ unaccent <- function(string) {
 #' The predicted gender based on the proportions of males and females with the input first name. Possible values are either "male" or "female". NA is returned when the input first name is unknown in the database.
 #' If freq is set to TRUE, the function returns the probability of the first name being male.
 #' @seealso
-#' \code{\link{gender}}, \code{\link{is.male}}, \code{\link{is.female}}
+#' \code{\link{gender}}, \code{\link{is_male}}, \code{\link{is_female}}
 #' @examples
 #' gender_unique("Baptiste")
 #' gender_unique("Henriette")
@@ -71,7 +71,7 @@ gender_unique <- function(fn, freq = FALSE) {
 #' The predicted genders based on the proportions of males and females with the input first names. Possible values are either "male" or "female". NAs are returned when the input first names are unknown in the database.
 #' If freq is set to TRUE, the function returns the probabilities of the first names being male.
 #' @seealso
-#' \code{\link{gender_unique}}, \code{\link{is.male}}, \code{\link{is.female}}
+#' \code{\link{gender_unique}}, \code{\link{is_male}}, \code{\link{is_female}}
 #' @examples
 #' gender(c("Baptiste", "Henriette")
 #' @export
@@ -88,7 +88,7 @@ gender <- function(firstname, freq = FALSE) as.vector(sapply(firstname, gender_u
 #' @return
 #' Logical. TRUE if the input first name is male, FALSE otherwise. NA is returned when the first name is unknown in the database.
 #' @seealso
-#' \code{\link{gender_unique}}, \code{\link{gender}}, \code{\link{is.female}}
+#' \code{\link{gender_unique}}, \code{\link{gender}}, \code{\link{is_female}}
 #' @examples
 #' is_male(c("Baptiste", "Annick")
 #' @export
@@ -105,7 +105,7 @@ is_male <- function(firstname) gender(firstname) == "male"
 #' @return
 #' Logical. TRUE if the input first name is female, FALSE otherwise. NA is returned when the first name is unknown in the database.
 #' @seealso
-#' \code{\link{gender_unique}}, \code{\link{gender}}, \code{\link{is.male}}
+#' \code{\link{gender_unique}}, \code{\link{gender}}, \code{\link{is_male}}
 #' @examples
 #' is_female(c("Baptiste", "Annick")
 #' @export
@@ -115,7 +115,7 @@ is_female <- function(firstname) gender(firstname) == "female"
 
 # To do next :
 
-# * Add probs or freq logical parameter to is.male and is.female to return
+# * Add probs or freq logical parameter to is_male and is_female to return
 # probability instead of logical.
 
 
