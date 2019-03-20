@@ -113,6 +113,7 @@ is_male <- function(firstname, year_min = 1900, year_max = 2017) gender(firstnam
 
 is_female <- function(firstname, year_min = 1900, year_max = 2017) gender(firstname, year_min = year_min, year_max = year_max) == "female"
 
+# New function
 
 # To do next :
 
