@@ -30,7 +30,7 @@ unaccent <- function(string) {
 }
 
 
-# gender.unique ----
+# gender_unique ----
 
 #' Predict gender from first name
 #'
@@ -50,8 +50,8 @@ unaccent <- function(string) {
 #' gender_unique("Henriette")
 #' @import dplyr
 
-gender_unique <- function(fn, year_min = 1900, year_max = 2017, freq = FALSE) {
-  temp <- fn_fr %>% filter(firstname == toupper(unaccent(fn)) & year >= year_min & year <= year_max) %>%
+gender_unique <- function(firstname, year_min = 1900, year_max = 2017, freq = FALSE) {
+  temp <- fn_fr %>% filter(firstname == toupper(unaccent(firstname)) & year >= year_min & year <= year_max) %>%
     group_by(firstname, sex) %>%
     summarise(nb =sum(count)) %>%
     mutate(pourcentage = nb / sum(nb) * 100) %>%
@@ -79,7 +79,7 @@ gender_unique <- function(fn, year_min = 1900, year_max = 2017, freq = FALSE) {
 
 gender <- function(firstname, year_min = 1900, year_max = 2017, freq = FALSE) as.vector(sapply(firstname, gender_unique, year_min = year_min, year_max = year_max, freq = freq))
 
-# is.male ----
+# is_male ----
 
 #' Predict whether the genders of first names are male.
 #'
@@ -96,7 +96,7 @@ gender <- function(firstname, year_min = 1900, year_max = 2017, freq = FALSE) as
 
 is_male <- function(firstname, year_min = 1900, year_max = 2017) gender(firstname, year_min = year_min, year_max = year_max) == "male"
 
-# is.female ----
+# is_female ----
 
 #' Predict whether the genders of first names are male.
 #'
@@ -113,12 +113,61 @@ is_male <- function(firstname, year_min = 1900, year_max = 2017) gender(firstnam
 
 is_female <- function(firstname, year_min = 1900, year_max = 2017) gender(firstname, year_min = year_min, year_max = year_max) == "female"
 
-# New function
 
 # To do next :
 
 # * Add probs or freq logical parameter to is_male and is_female to return
 # probability instead of logical.
+
+
+
+
+# AGE AND YEAR OF BIRTH ----
+
+
+
+# year_unique ----
+
+#' Predict year from first name
+#'
+#' This function predicts the year of birth from a first name.
+#'
+#' @param firstname first name as a character string.
+#' @param year_min starting year of the period over which the prediction is computed.
+#' @param year_max ending year of the period over which the prediction is computed.
+#' @return
+#' The predicted year of birth based on the proportions of individuals with the input first name born each year. The function returns the mode of the distribution, i.e. the year with the highest number of individuals born by the input firstname. NA is returned when the input first name is unknown in the database.
+#' @examples
+#' year("Baptiste")
+#' year("Henriette")
+#' @import dplyr
+
+year_unique <- function(firstname, year_min = 1946, year_max = 2017) {
+  temp <- fn_fr %>% filter(firstname == toupper(unaccent(firstname)) & year >= year_min & year <= year_max) %>%
+    group_by(firstname, year) %>%
+    summarise(nb =sum(count)) %>%
+    filter(nb == max(nb))
+  res <- temp$year
+  return(res)
+}
+
+
+# year ----
+
+#' Predict years of birth from first names
+#'
+#' This function predicts the years of birth of individuals from a vector of first names.
+#'
+#' @inheritParams year_unique
+#' @return
+#' The predicted years of birth based on the proportions of individuals with the input first names born each year. The function returns the modes of the distributions, i.e. the years with the highest numbers of individuals born by the input firstnames. NAs are returned when the input first names are unknown in the database.
+#' @examples
+#' year(c("Baptiste", "Henriette")
+#' @export
+
+year <- function(firstname, year_min = 1946, year_max = 2017) as.vector(sapply(firstname, year_unique, year_min = year_min, year_max = year_max))
+
+# Quand deux modes parfaits, lequel choisir ?
 
 
 
