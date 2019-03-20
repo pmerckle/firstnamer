@@ -25,7 +25,6 @@
 unaccent <- function(string) {
   text <- gsub("['`^~\"]", " ", string)
   text <- iconv(text, to="ASCII//TRANSLIT//IGNORE")
-  text <- gsub("['`^~\"]", "", string)
   return(text)
 }
 
