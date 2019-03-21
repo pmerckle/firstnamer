@@ -35,7 +35,7 @@ unaccent <- function(string) {
 #'
 #' This function predicts the gender of a first name.
 #'
-#' @param firstname first name as a character string.
+#' @param first_name first name as a character string.
 #' @param year_min starting year of the period over which the prediction is computed.
 #' @param year_max ending year of the period over which the prediction is computed.
 #' @param freq return the probability of the first name being male
@@ -48,16 +48,18 @@ unaccent <- function(string) {
 #' gender_unique("Baptiste")
 #' gender_unique("Henriette")
 #' @import dplyr
+#' @import magrittr
 
-gender_unique <- function(firstname, year_min = 1900, year_max = 2017, freq = FALSE) {
-  temp <- fn_fr %>% filter(firstname == toupper(unaccent(firstname)) & year >= year_min & year <= year_max) %>%
-    group_by(firstname, sex) %>%
+gender_unique <- function(first_name, year_min = 1900, year_max = 2017, freq = FALSE) {
+  temp <- fn_fr %>% filter(fn == toupper(unaccent(first_name)) & year >= year_min & year <= year_max) %>%
+    group_by(fn, sex) %>%
     summarise(nb =sum(count)) %>%
     mutate(pourcentage = nb / sum(nb) * 100) %>%
     filter(pourcentage > 50)
   if(freq) res <- ifelse(temp$sex == 1, temp$pourcentage/100, 1-temp$pourcentage/100) else res <- ifelse(temp$sex == 1, "male", "female")
   return(res)
 }
+
 
 
 # gender ----
@@ -131,7 +133,7 @@ is_female <- function(firstname, year_min = 1900, year_max = 2017) gender(firstn
 #'
 #' This function predicts the year of birth from a first name.
 #'
-#' @param firstname first name as a character string.
+#' @param first_name first name as a character string.
 #' @param year_min starting year of the period over which the prediction is computed.
 #' @param year_max ending year of the period over which the prediction is computed.
 #' @return
@@ -140,9 +142,10 @@ is_female <- function(firstname, year_min = 1900, year_max = 2017) gender(firstn
 #' year("Baptiste")
 #' year("Henriette")
 #' @import dplyr
+#' @import magrittr
 
-year_unique <- function(firstname, year_min = 1946, year_max = 2017) {
-  temp <- fn_fr %>% filter(firstname == toupper(unaccent(firstname)) & year >= year_min & year <= year_max) %>%
+year_unique <- function(first_name, year_min = 1946, year_max = 2017) {
+  temp <- fn_fr %>% filter(fn == toupper(unaccent(first_name)) & year >= year_min & year <= year_max) %>%
     group_by(firstname, year) %>%
     summarise(nb =sum(count)) %>%
     filter(nb == max(nb))

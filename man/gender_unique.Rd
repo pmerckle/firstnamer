@@ -4,16 +4,17 @@
 \alias{gender_unique}
 \title{Predict gender from first name}
 \usage{
-gender_unique(fn, year_min = 1900, year_max = 2017, freq = FALSE)
+gender_unique(first_name, year_min = 1900, year_max = 2017,
+  freq = FALSE)
 }
 \arguments{
+\item{first_name}{first name as a character string.}
+
 \item{year_min}{starting year of the period over which the prediction is computed.}
 
 \item{year_max}{ending year of the period over which the prediction is computed.}
 
 \item{freq}{return the probability of the first name being male}
-
-\item{firstname}{first name as a character string.}
 }
 \value{
 The predicted gender based on the proportions of males and females with the input first name. Possible values are either "male" or "female". NA is returned when the input first name is unknown in the database.
