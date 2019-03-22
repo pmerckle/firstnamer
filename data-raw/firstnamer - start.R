@@ -76,9 +76,25 @@ devtools::use_data_raw()
 # > INTERNATIONAL : behindthenames.com
 
 library(rvest)
-url <- "https://www.behindthename.com/names/1"
-page <- url %>% read_html %>% html_text
+# Get number of pages to scrape from homepage
+url <- "https://www.behindthename.com/names"
+page <- url %>% read_html %>% html_nodes(xpath = '//*[@id="div_pagination"]/div/a')
+page <- url %>% read_html %>% html_nodes(css = '#div_pagination > div > a')
+n <- page[length(page)-1] %>% html_text %>% as.integer
 
+# Scrape pages
+page <- paste0(url, "/2") %>% read_html
+names <- page %>% html_nodes("div.browsename")
+
+
+
+
+for (i in 1:n) {
+  page <- urls[i] %>% read_html
+}
+urls <- paste0(url, "/", 1:n)
+
+page <-
 
 # Test package ----
 
