@@ -13,10 +13,11 @@ gender(firstname, year_min = 1900, year_max = 2017, freq = FALSE)
 
 \item{year_max}{ending year of the period over which the prediction is computed.}
 
-\item{freq}{return the probability of the first name being male
-#' @return
+\item{freq}{return the probability of the first name being male}
+}
+\value{
 The predicted genders based on the proportions of males and females with the input first names. Possible values are either "male" or "female". NAs are returned when the input first names are unknown in the database.
-If freq is set to TRUE, the function returns the probabilities of the first names being male.}
+If freq is set to TRUE, the function returns the probabilities of the first names being male.
 }
 \description{
 This function predicts the genders of a vector of first names.

@@ -82,7 +82,9 @@ page <- url %>% read_html %>% html_text
 
 # Test package ----
 
+
 # General test
+.libPaths("C:/R")
 library(devtools)
 devtools::install_github("pmerckle/firstnamer")
 library(firstnamer)
@@ -91,7 +93,7 @@ gender("Armando")
 gender(c("Jacques", "Bernadette", "Nicolas", "Carla", "François", "Julie", "Emmanuel", "Brigitte"))
 gender("Camille", year_max = 1950)
 gender("Camille", year_min = 1950)
-year("Pierre")
+year("Théoxane")
 
 # Help pages
 package?firstnamer
@@ -104,7 +106,7 @@ gender("Henry")
 gender(c("Patrick", "Michelle"))
 is_female("Marcelle")
 year("Théo")
-year("Anouk", "Lilia")
+year(c("Anouk", "Lilia"))
 
 # Create new vignette
 devtools::use_vignette("firstnamer")

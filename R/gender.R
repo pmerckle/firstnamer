@@ -71,7 +71,7 @@ gender_unique <- function(first_name, year_min = 1900, year_max = 2017, freq = F
 #' @param year_min starting year of the period over which the prediction is computed.
 #' @param year_max ending year of the period over which the prediction is computed.
 #' @param freq return the probability of the first name being male
-#' #' @return
+#' @return
 #' The predicted genders based on the proportions of males and females with the input first names. Possible values are either "male" or "female". NAs are returned when the input first names are unknown in the database.
 #' If freq is set to TRUE, the function returns the probabilities of the first names being male.
 #' @seealso
