@@ -73,7 +73,7 @@ devtools::use_data(fn_fr, internal = TRUE, overwrite = TRUE)
 devtools::use_data_raw()
 
 
-# > INTERNATIONAL : behindthenames.com
+# > INTERNATIONAL : behindthename.com ----
 
 library(rvest)
 # Get number of pages to scrape from homepage
@@ -81,20 +81,19 @@ url <- "https://www.behindthename.com/names"
 page <- url %>% read_html %>% html_nodes(xpath = '//*[@id="div_pagination"]/div/a')
 page <- url %>% read_html %>% html_nodes(css = '#div_pagination > div > a')
 n <- page[length(page)-1] %>% html_text %>% as.integer
-
 # Scrape pages
-page <- paste0(url, "/2") %>% read_html
-names <- page %>% html_nodes("div.browsename")
-
-
-
-
+df <- NULL
 for (i in 1:n) {
-  page <- urls[i] %>% read_html
+  print(i)
+  page <- paste0(url, "/", i) %>% read_html
+  name <- page %>% html_nodes("span.listname") %>% html_text
+  gender <- page %>% html_nodes("span.listgender") %>% html_text
+  usage <- page %>% html_nodes("span.listusage") %>% html_text
+  df <- rbind(df, cbind(name, gender, usage))
 }
-urls <- paste0(url, "/", 1:n)
+bhtn <- as.data.frame(df)
 
-page <-
+
 
 # Test package ----
 
